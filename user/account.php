@@ -26,33 +26,28 @@ $result = $con->query($query);
 
 <section class="main-section">
     <div class="main-container">
-        <div class="user-info-table-container">
-            <header>User Information</header>
-            <table class="user-info-table">
+        <div class="user-info-table">
+            <header>User Information</header></br>
+            <table class="info">
                 <tr>
-                    <th>Attribute</th>
-                    <th>Details</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th></th>
                 </tr>
                 <?php
                 if ($result && $result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                     echo "<tr>";
-                    echo "<td class='attribute'>Username</td>";
-                    echo "<td class='details'>" . $row['username'] . "</td>";
-                    echo "</tr>";
-                    echo "<tr>";
-                    echo "<td class='attribute'>Email</td>";
-                    echo "<td class='details'>" . $row['email'] . "</td>";
+                    echo "<td>" . $row['username'] . "</td>";
+                    echo "<td>" . $row['email'] . "</td>";
+                    echo "<td><a href='edit.php'>Edit</a></td>";
                     echo "</tr>";
                 } else {
-                    echo "<tr><td colspan='2'>No user information available.</td></tr>";
+                    echo "<tr><td colspan='3'>No user information available.</td></tr>";
                 }
                 ?>
             </table>
         </div>
 
-        <div class="edit-button">
-            <a href="edit.php"><button class="edit-btn">Edit</button></a>
-        </div>
     </div>
 </section>

@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 $title = 'Events';
 $css = 'css/website/event.css';
@@ -25,7 +24,7 @@ if (isset($_GET['search'])) {
 
 $checked = [];
 if (isset($_GET['type']) && isset($_GET['seats'])) {
-    $checked = ($_GET['type']);
+    $checked = $_GET['type'];
 
     foreach ($checked as $args) {
         $type_checked[] = "type = '" . $args . "'";
@@ -64,16 +63,6 @@ if (isset($_GET['type']) && isset($_GET['seats'])) {
     $seats_str = implode(' OR ', $seats_checked);
 
     $sql .= " WHERE " . $seats_str;
-}
-
-if (isset($_POST['event'])) {
-    if (isset($_SESSION['user'])) {
-        header("location: booking.php");
-        exit();
-    } else {
-        header("location: login.php?redirect=event.php");
-        exit();
-    }
 }
 
 $result = $con->query($sql);
@@ -149,10 +138,10 @@ $result = $con->query($sql);
                         </div>
                         <div class='row content'>
                             <p>" . nl2br($row["content"]) . "</p>
-                            <form method='post'>
-                                <input type='text' name='event' id='event' value=" . $row["id"] . " hidden>
+                            <form action='payment.php' method='post'>
+                                <input type='hidden' name='event' id='event' value=" . $row["id"] . ">
                                 <input type='submit' value='Signup'>
-                            <form>
+                            </form>
                         </div>
                     </div>";
                 }

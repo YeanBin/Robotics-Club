@@ -110,7 +110,8 @@ $result = $con->query("SELECT * FROM user");
                     <col style="width: 3%;">
                     <col>
                     <col>
-                    <col style="width: 10%;">
+                    <col>
+                    <col style="width: 7%;">
                     <col style="width: 10%;">
                 </colgroup>
                 <thead>
@@ -118,7 +119,8 @@ $result = $con->query("SELECT * FROM user");
                         <th>ID</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Student</th>
+                        <th>Phone No.</th>
+                        <th>Gender</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -132,6 +134,7 @@ $result = $con->query("SELECT * FROM user");
                                 <td>%s</td>
                                 <td>%s</td>
                                 <td>%s</td>
+                                <td>%s</td>
                                 <td>
                                     <a href="">View</a> | 
                                     <a href="users.php?delete=%d">Delete</a>
@@ -140,7 +143,8 @@ $result = $con->query("SELECT * FROM user");
                             $row->id,
                             $row->username,
                             $row->email,
-                            $row->student_id == null ? 'No' : 'Yes',
+                            $row->phoneNo,
+                            $row->gender,
                             $row->id,
                             $row->id
                         );
@@ -150,7 +154,7 @@ $result = $con->query("SELECT * FROM user");
                         <?php
                         printf(
                             '<tr>
-                                <td colspan="5">%d record(s) found.</td>
+                                <td colspan="6">%d record(s) found.</td>
                             </tr>',
                             $result->num_rows
                         );

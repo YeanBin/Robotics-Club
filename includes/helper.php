@@ -20,6 +20,7 @@ function validateUsername($username)
         return 'Username has been taken.';
     }
 }
+
 function validateEmail($email)
 {
     if ($email == null) {

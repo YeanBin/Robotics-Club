@@ -89,3 +89,13 @@ function isEmpty($value)
         return 'Field cannot be blank';
     }
 }
+
+//payment.php
+function generateID($char, $length)
+{
+    $min = pow(10, ($length - 1));
+    $max = pow(10, $length) - 1;
+    $randNum = rand($min, $max);
+
+    return $char . $randNum;
+}

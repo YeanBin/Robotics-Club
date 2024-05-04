@@ -1,44 +1,182 @@
 .payment-section {
-    margin-top: 20px;
+	display: flex;
+	justify-content: center;
 }
 
-.container-payment {
-    width: 350px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-sizing: border-box;
+.main-container {
+	display: flex;
+	justify-content: center;
+	padding: 0 3rem;
+	width: 70%;
 }
 
-input[type="text"],
-input[type="password"] {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+.main-container h1 {
+	color: var(--eerie-black);
+	padding-bottom: 10px;
 }
 
-button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.form-container,
+.details-container {
+	background-color: white;
+	color: var(--eerie-black);
+	padding: 2rem;
 }
 
-button[type="submit"]:hover {
-    background-color: #45a049;
+.form-container {
+	width: 60%;
+	border-right: 0.2px solid var(--lead-black);
 }
 
-.error-message {
-    color: red;
+.form-container form {
+	display: grid;
+	grid-template-areas:
+		'card card card card'
+		'name name expiry cvv';
+	grid-template-columns: repeat(4, 25%);
 }
 
+.form-input {
+	padding-top: 15px;
+}
+
+.ccard {
+	grid-area: card;
+}
+
+.name {
+	grid-area: name;
+}
+
+.expiry {
+	grid-area: expiry;
+}
+
+.cvv {
+	grid-area: cvv;
+}
+
+.expiry,
+.cvv {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.ccard input,
+.name input {
+	width: 100%;
+}
+
+.expiry label,
+.expiry input,
+.cvv label,
+.cvv input {
+	width: 90%;
+}
+
+.form-input input {
+	background-color: transparent;
+	color: var(--eerie-black);
+	border: 1px solid;
+	border-radius: 5px;
+	font-size: 14px;
+	padding: 10px;
+	outline: none;
+	margin-top: 5px;
+}
+
+.form-input small {
+	margin-top: 3px;
+}
+
+.form-input.error input {
+	border-color: #e74c3c;
+}
+
+.form-input.error small {
+	color: #e74c3c;
+}
+
+.details-container {
+	width: 40%;
+}
+
+.event-card {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	background-color: #e5e5e5;
+	padding: 10px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+}
+
+.price > div {
+	padding-top: 10px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.price > hr {
+	margin-top: 10px;
+}
+
+.form-button {
+	padding-top: 10px;
+}
+
+.form-button button {
+	width: 100%;
+}
+
+.popup.active {
+	display: flex !important;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+.popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	gap: 1.3rem;
+	width: 300px;
+	height: 370px;
+	padding: 20px;
+	color: var(--lead-black);
+	background-color: white;
+	box-shadow: var(--box-shadow);
+}
+
+.card .fa-solid {
+	font-size: 130px;
+}
+
+.card.success i.fa-circle-check {
+	display: block !important;
+	color: #2ecc71;
+}
+
+.card.error i.fa-circle-xmark {
+	display: block !important;
+	color: #e74c3c;
+}
+
+.card a {
+	font-size: 18px;
+	color: var(--lead-black);
+	border: 2px solid black;
+	padding: 10px;
+	width: 150px;
+}

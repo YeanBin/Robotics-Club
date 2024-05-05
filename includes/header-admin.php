@@ -22,9 +22,10 @@
     <div class="sidenav">
         <div class="container">
             <div class="logo">
-                <a href="dashboard.php"><i class="fa-solid fa-user"></i><?php echo ADMIN_USER ?></a>
+                <a href="dashboard.php"><i class="fa-solid fa-user"></i><?php echo $_SESSION['admin'] ?></a>
             </div>
             <div class="links">
+                <a href="../index.php">Home</a>
                 <a href="events.php">Events</a>
                 <a href="news.php">News</a>
                 <a href="users.php">Users</a>

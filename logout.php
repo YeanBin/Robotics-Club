@@ -6,4 +6,6 @@ if (isset($_SESSION['user']) || isset($_SESSION['admin'])) {
     session_destroy();
     header('location: login.php');
     exit();
+} else {
+    header('location: index.php');
 }

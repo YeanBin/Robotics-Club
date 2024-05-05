@@ -28,16 +28,40 @@ require_once('includes/helper.php');
                 $username = trim($_POST['username']);
                 $password = trim($_POST['password']);
 
-                if ($username == ADMIN_USER && $password == ADMIN_PASS) {
-                    $_SESSION['admin'] = $username;
+                $con = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-                    $username = $password = null;
+                $username  = $con->real_escape_string($username);
+                $sql = "SELECT username, password FROM user WHERE username = ? AND admin = 1";
 
-                    header("location: admin/dashboard.php");
-                    exit();
+                $stm = $con->prepare($sql);
+
+                $stm->bind_param('s', $username);
+
+                $stm->execute();
+                $stm->store_result();
+
+                if ($stm->num_rows > 0) {
+                    $stm->bind_result($username, $hashed_password);
+
+                    $stm->fetch();
+
+                    if (password_verify($password, $hashed_password)) {
+                        $_SESSION['admin'] = $username;
+
+                        $username = $password = null;
+
+                        header("location: admin/dashboard.php");
+                        exit();
+                    } else {
+                        $error['username'] = $error['password'] = 'Invalid username or password';
+                    }
                 } else {
                     $error['username'] = $error['password'] = 'Invalid username or password';
                 }
+                $stm->close();
+                $con->close();
+
+                $error = array_filter($error);
             } else {
                 $username = '';
                 $password = '';

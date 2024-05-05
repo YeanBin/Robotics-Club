@@ -40,7 +40,7 @@ if (!empty($_GET)) {
     $id = isset($_GET['delete']) ? trim(($_GET['delete'])) : null;
 
     $id  = $con->real_escape_string($id);
-    $sql = "SELECT * FROM user WHERE id = $id";
+    $sql = "SELECT * FROM user WHERE id = $id AND admin = 0";
 
     $result = $con->query($sql);
 
@@ -64,6 +64,14 @@ if (!empty($_GET)) {
                         <td>Email: </td>
                         <td>%s</td>
                     </tr>
+                    <tr>
+                        <td>Phone No.: </td>
+                        <td>%s</td>
+                    </tr>
+                    <tr>
+                        <td>Gender: </td>
+                        <td>%s</td>
+                    </tr>
                     </table>
 
                     <form action="" method="post">
@@ -76,6 +84,8 @@ if (!empty($_GET)) {
             $row->id,
             $row->username,
             $row->email,
+            $row->phoneNo == null ? "-" : $row->phoneNo,
+            $row->gender == null ? "-" : $row->gender,
             $row->username
         );
     }
@@ -90,7 +100,7 @@ if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
 }
 
-$result = $con->query("SELECT * FROM user");
+$result = $con->query("SELECT * FROM user WHERE admin = 0");
 ?>
 
 <section class="main-section">
@@ -112,7 +122,7 @@ $result = $con->query("SELECT * FROM user");
                     <col>
                     <col>
                     <col style="width: 7%;">
-                    <col style="width: 10%;">
+                    <col style="width: 13%;">
                 </colgroup>
                 <thead>
                     <tr>
@@ -136,15 +146,15 @@ $result = $con->query("SELECT * FROM user");
                                 <td>%s</td>
                                 <td>%s</td>
                                 <td>
-                                    <a href="">View</a> | 
+                                    <a href="">Bookings</a> | 
                                     <a href="users.php?delete=%d">Delete</a>
                                 </td>
                             </tr>',
                             $row->id,
                             $row->username,
                             $row->email,
-                            $row->phoneNo,
-                            $row->gender,
+                            $row->phoneNo == null ? "-" : $row->phoneNo,
+                            $row->gender == null ? "-" : $row->gender,
                             $row->id,
                             $row->id
                         );

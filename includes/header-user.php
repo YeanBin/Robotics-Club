@@ -25,7 +25,7 @@
                 <a href="dashboard.php"><i class="fa-solid fa-user"></i><?php echo $user ?></a>
             </div>
             <div class="links">
-                <a href="../index.php">Website</a>
+                <a href="../index.php">Home</a>
                 <a href="notifications.php">Notifications</a>
                 <a href="account.php">Account</a>
                 <a href="tickets.php">Tickets</a>

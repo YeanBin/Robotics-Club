@@ -43,8 +43,6 @@ if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
         $avatar = $dir . uniqid() . '.' . $ext;
 
         if (move_uploaded_file($file['tmp_name'], $avatar)) {
-            echo "Avatar uploaded successfully: $avatar";
-
             $sql = "UPDATE user SET avatar = ? WHERE username = ?";
 
             $stm = $con->prepare($sql);
@@ -99,7 +97,7 @@ $con->close();
 
 <section class="main-section">
     <div class="main-container">
-        <form method="post" enctype="multipart/form-data">
+        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
             <div class="avatar">
                 <div class="image">
                     <?php

@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $title = 'Events';
 $css = 'css/website/event.css';
@@ -126,6 +127,21 @@ $result = $con->query($sql);
             <div class='event-items'>
                 <?php
                 while ($row = $result->fetch_assoc()) {
+                    $buttonText = $row["seats"] > 0 ? "Sign Up" : "Sold Out";
+
+                    $user = $_SESSION["user"];
+                    $eventID = $row["id"];
+                    $checkSql = "SELECT * FROM bookings WHERE event_id = $eventID AND user_id = '$user'";
+
+                    $checkResult = $con->query($checkSql);
+                    if ($checkResult->num_rows > 0) {
+                        $buttonText = "Signed Up";
+                        $disabled = "disabled";
+                    } else {
+                        $disabled = $buttonText == 'Sold Out' ? 'disabled' : '';
+                    }
+
+
                     echo "
                     <div class='event-card'>
                         <div class='row title'>
@@ -139,8 +155,8 @@ $result = $con->query($sql);
                         <div class='row content'>
                             <p>" . nl2br($row["content"]) . "</p>
                             <form action='payment.php' method='post'>
-                                <input type='hidden' name='event' id='event' value=" . $row["id"] . ">
-                                <input type='submit' value='Signup'>
+                                <input type='hidden' name='event' id='event' value=" . $eventID . ">
+                                <input type='submit' value='" . $buttonText . "' " . $disabled . " >
                             </form>
                         </div>
                     </div>";

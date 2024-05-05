@@ -140,6 +140,10 @@
 	justify-content: space-between;
 }
 
+.content form {
+	display: flex;
+}
+
 .content input {
 	width: 130px;
 	height: 40px;
@@ -154,9 +158,15 @@
 	transition: all 0.3s ease;
 }
 
-.content input:hover {
+.content input:hover:enabled {
 	color: white;
 	background-color: var(--lead-black);
+}
+
+.content input:disabled {
+	border-color: #5f5f5f;
+	color: #5f5f5f;
+	cursor: no-drop;
 }
 
 .no-results {

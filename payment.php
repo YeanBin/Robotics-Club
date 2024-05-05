@@ -57,15 +57,15 @@ if (isset($_POST['confirm'])) {
     $error = array_filter($error);
 
     if (empty($error)) {
-        $sql = 'INSERT INTO bookings (booking_id, event_id, user_id, price) VALUES (?, ?, ?, ?)';
+        $insertSql = 'INSERT INTO bookings (booking_id, event_id, user_id, price) VALUES (?, ?, ?, ?)';
 
-        $stm = $con->prepare($sql);
+        $insertStm = $con->prepare($insertSql);
 
-        $stm->bind_param('sisd', $bookID, $eventID, $_SESSION['user'], $price);
+        $insertStm->bind_param('sisd', $bookID, $eventID, $_SESSION['user'], $price);
 
-        $stm->execute();
+        $insertStm->execute();
 
-        if ($stm->affected_rows > 0) {
+        if ($insertStm->affected_rows > 0) {
             $updateSql = "UPDATE events SET seats = seats - 1 WHERE id = ?";
 
             $updateStm = $con->prepare($updateSql);
@@ -85,7 +85,7 @@ if (isset($_POST['confirm'])) {
             }
             $updateStm->close();
         }
-        $stm->close();
+        $insertStm->close();
     }
 } else {
     $card = '';
@@ -159,6 +159,7 @@ $con->close();
 
             <div class="form-button">
                 <button type="submit" form="payment-form" name="confirm">Confirm Payment</button>
+                <button name="cancel" onclick="location='event.php'">Cancel</button>
             </div>
         </div>
     </div>

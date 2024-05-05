@@ -121,12 +121,14 @@
 	margin-top: 10px;
 }
 
-.form-button {
-	padding-top: 10px;
-}
-
 .form-button button {
 	width: 100%;
+	margin-top: 10px;
+}
+
+.form-button button:hover {
+	color: white;
+	background-color: var(--lead-black);
 }
 
 .popup.active {

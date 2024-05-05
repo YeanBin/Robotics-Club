@@ -8,7 +8,7 @@ define('DB_NAME', 'robotic-club');
 function validateUsername($username)
 {
     if ($username == null) {
-        return 'Username cannot be blank';
+        return 'Field cannot be blank';
     } else if (strlen($username) < 3 || strlen($username) > 30) {
         return 'Username must be between 3 to 30 characters long.';
     } else if (!preg_match('/^[a-zA-Z0-9_-]+$/', $username)) {
@@ -18,12 +18,14 @@ function validateUsername($username)
     }
 }
 
-function validateEmail($email)
+function validateEmail($email, $isRegister, $currEmail = null)
 {
     if ($email == null) {
-        return 'E-mail cannot be blank.';
+        return 'Field cannot be blank.';
     } else if (!preg_match('/^[\w.-]+@[\w.-]+\.[A-Za-z]{2,6}$/', $email)) {
         return 'Invalid e-mail address';
+    } else if (!$isRegister && $currEmail != null && $email == $currEmail) {
+        return;
     } else if (isUserExist($email, 'email')) {
         return 'An account with this e-mail already exist.';
     }
@@ -32,7 +34,7 @@ function validateEmail($email)
 function validatePassword($password)
 {
     if ($password == null) {
-        return 'Password cannot be blank.';
+        return 'Field cannot be blank.';
     } else if (strlen($password) < 8 || strlen($password) > 17) {
         return 'Password must be between 8 to 16 characters long.';
     } else if (!preg_match('/^[a-zA-Z0-9!@#$%^&*]+$/', $password)) {
@@ -40,9 +42,11 @@ function validatePassword($password)
     }
 }
 
-function validateConfirm($password, $confirm)
+function validateConfirm($password, $confirm, $isRegister)
 {
-    if ($confirm == null || $confirm != $password) {
+    if ($confirm == null) {
+        return 'Field cannot be blank.';
+    } else if (($isRegister && $confirm != $password) || (!$isRegister && !password_verify($password, $confirm))) {
         return 'Passwords does not match';
     }
 }

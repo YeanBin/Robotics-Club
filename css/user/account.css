@@ -1,0 +1,137 @@
+.main-container {
+	display: flex;
+	width: 65%;
+}
+
+form {
+	width: 100%;
+	display: flex;
+}
+
+.avatar {
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: var(--eerie-black);
+	background-color: white;
+	border-right: 0.5px solid;
+	font-size: 30px;
+	gap: 20px;
+}
+
+.image {
+	width: 80%;
+	background-color: #a3a3a3;
+}
+
+.avatar input {
+	border: 1px solid;
+	border-radius: 4px;
+}
+
+.details {
+	width: 70%;
+	background-color: white;
+	color: var(--eerie-black);
+	padding: 20px;
+}
+
+hr {
+	margin: 10px 0;
+}
+
+.details-input {
+	display: grid;
+	grid-template-columns: repeat(2, 50%);
+	grid-template-areas:
+		'email email'
+		'password password'
+		'confirm confirm'
+		'phone gender'
+		'. button';
+}
+
+.input-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.input-container label {
+	margin-bottom: 5px;
+	padding-top: 10px;
+}
+
+.input-container > input,
+.input-container > select {
+	padding: 5px;
+	height: 40px;
+	font-size: 18px;
+	color: var(--eerie-black);
+	background-color: transparent;
+	border: 1px solid;
+	border-radius: 4px;
+	outline: none;
+}
+
+.input-container input:disabled {
+	border-color: #5f5f5f;
+}
+
+.input-container.error input {
+	border-color: #e74c3c;
+}
+
+.input-container.error small {
+	visibility: visible;
+	color: #e74c3c;
+}
+
+.input-container small {
+	margin-top: 5px;
+}
+
+.email {
+	grid-area: email;
+}
+
+.password {
+	grid-area: password;
+}
+
+.confirm {
+	grid-area: confirm;
+}
+
+.phone {
+	grid-area: phone;
+}
+
+.gender {
+	grid-area: gender;
+	align-items: flex-end;
+}
+
+.phone label,
+.phone input,
+.gender label,
+.gender select {
+	width: 95%;
+}
+
+.form-button {
+	display: flex;
+	grid-area: button;
+	justify-content: flex-end;
+	margin-top: 20px;
+}
+
+.form-button button {
+	width: 150px;
+}
+
+.form-button button:hover {
+	color: white;
+	background-color: var(--eerie-black);
+}

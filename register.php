@@ -23,9 +23,9 @@ global $isSuccess;
                 $confirm = trim($_POST['confirm']);
 
                 $error['username'] = validateUsername($username);
-                $error['email'] = validateEmail($email);
+                $error['email'] = validateEmail($email, 1);
                 $error['password'] = validatePassword($password);
-                $error['confirm'] = validateConfirm($password, $confirm);
+                $error['confirm'] = validateConfirm($password, $confirm, 1);
 
                 $error = array_filter($error);
 

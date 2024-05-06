@@ -146,10 +146,10 @@ $result = $con->query("SELECT * FROM user WHERE admin = 0");
                                 <td>%s</td>
                                 <td>%s</td>
                                 <td>
-                                    <a href="">Bookings</a> | 
+                                    <a href="user\tickets.php?user_id=<?php echo $row->id; ?>">Bookings</a> 
                                     <a href="users.php?delete=%d">Delete</a>
                                 </td>
-                            </tr>',
+                            </tr>'
                             $row->id,
                             $row->username,
                             $row->email,

@@ -92,7 +92,7 @@ if (isset($_SESSION['user'])) {
 				</div>
 
 				<div class="form-link">
-					<a href="#" class="forgot-link">Forgot password?</a>
+					<a href="recover.php" class="forgot-link">Forgot password?</a>
 				</div>
 
 				<div class="form-button">

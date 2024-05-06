@@ -5,7 +5,7 @@ $css = 'css/website/login.css';
 include('includes/header.php');
 require_once('includes/helper.php');
 
-global $isSuccess;
+$isSuccess = false;
 ?>
 
 <!-- Account Section -->
@@ -50,8 +50,6 @@ global $isSuccess;
                         echo "<script> setTimeout(function() {
                             popupToggle();
                         }, 300) </script> ";
-                    } else {
-                        $isSuccess = false;
                     }
 
                     $stm->close();

@@ -107,11 +107,6 @@ $result = $con->query("SELECT * FROM user WHERE admin = 0");
     <div class="main-container">
         <div class="taskbar">
             <h1>USERS LIST</h1>
-
-            <div class="buttons">
-                <a href="" class="button">Add</a>
-                <a href="" class="button">Select</a>
-            </div>
         </div>
 
         <div class="user-container">
@@ -140,22 +135,22 @@ $result = $con->query("SELECT * FROM user WHERE admin = 0");
                     while ($row = $result->fetch_object()) {
                         printf(
                             '<tr>
-                            <td>%d</td>
+                                <td>%d</td>
                                 <td>%s</td>
                                 <td>%s</td>
                                 <td>%s</td>
                                 <td>%s</td>
                                 <td>
-                                    <a href="user\tickets.php?user_id=<?php echo $row->id; ?>">Bookings</a> 
+                                    <a href="tickets.php?user=%s">Bookings</a> |
                                     <a href="users.php?delete=%d">Delete</a>
                                 </td>
-                            </tr>'
+                            </tr>',
                             $row->id,
                             $row->username,
                             $row->email,
                             $row->phoneNo == null ? "-" : $row->phoneNo,
                             $row->gender == null ? "-" : $row->gender,
-                            $row->id,
+                            $row->username,
                             $row->id
                         );
                     }

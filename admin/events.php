@@ -115,7 +115,6 @@ $result = $con->query("SELECT id, title, date, type, seats, content FROM events"
 
             <div class="buttons">
                 <a href="add.php?table=events" class="button">Add</a>
-                <a href="" class="button">Select</a>
             </div>
         </div>
 

@@ -100,7 +100,6 @@ $result = $con->query("SELECT id, title, date, content FROM news");
 
             <div class="buttons">
                 <a href="add.php?table=news" class="button">Add</a>
-                <a href="" class="button">Select</a>
             </div>
         </div>
 

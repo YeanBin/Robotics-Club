@@ -29,7 +29,7 @@ if (isset($_SESSION['user'])) {
 				$con = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
 				$username  = $con->real_escape_string($username);
-				$sql = "SELECT username, password FROM user WHERE username = ?";
+				$sql = "SELECT username, password FROM user WHERE username = ? AND admin = 0";
 
 				$stm = $con->prepare($sql);
 

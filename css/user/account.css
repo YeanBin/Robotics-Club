@@ -37,9 +37,14 @@ form {
 	font-size: 200px;
 }
 
+.avatar-input {
+	max-width: 90%;
+}
+
 .avatar input {
 	border: 1px solid;
 	border-radius: 4px;
+	width: 100%;
 }
 
 .details {

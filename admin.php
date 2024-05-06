@@ -1,4 +1,10 @@
 <?php
+$title = 'Admin Login';
+$css = 'css/website/login.css';
+
+include('includes/header.php');
+require_once('includes/helper.php');
+
 if (isset($_SESSION['user'])) {
     header("location: user/dashboard.php");
     exit();
@@ -6,12 +12,6 @@ if (isset($_SESSION['user'])) {
     header("location: admin/dashboard.php");
     exit();
 }
-
-$title = 'Admin Login';
-$css = 'css/website/login.css';
-
-include('includes/header.php');
-require_once('includes/helper.php');
 ?>
 
 <!-- Account Section -->

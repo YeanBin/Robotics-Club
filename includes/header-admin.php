@@ -23,6 +23,7 @@
         <div class="container">
             <div class="logo">
                 <a href="dashboard.php"><i class="fa-solid fa-user"></i><?php echo $_SESSION['admin'] ?></a>
+                <a href="account.php"><i class="fa-regular fa-pen-to-square"></i></a>
             </div>
             <div class="links">
                 <a href="../index.php">Home</a>

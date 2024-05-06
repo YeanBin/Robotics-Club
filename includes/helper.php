@@ -5,7 +5,7 @@ define('DB_PASS', '');
 define('DB_NAME', 'robotic-club');
 
 // register.php
-function validateUsername($username)
+function validateUsername($username, $isRegister, $currUsername = null)
 {
     if ($username == null) {
         return 'Field cannot be blank';
@@ -13,7 +13,9 @@ function validateUsername($username)
         return 'Username must be between 3 to 30 characters long.';
     } else if (!preg_match('/^[a-zA-Z0-9_-]+$/', $username)) {
         return 'Username must contain only letters, numbers, dashes and underscore.';
-    } else if (isUserExist($username, 'username')) {
+    } else if (!$isRegister && $currUsername != null && $username == $currUsername) {
+        return;
+    } else if (($isRegister && isUserExist($username, 'username')) || (!$isRegister && $username != $currUsername && isUserExist($username, 'username'))) {
         return 'Username has been taken.';
     }
 }

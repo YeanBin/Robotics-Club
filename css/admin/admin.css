@@ -27,6 +27,11 @@ a {
 	max-width: 40px;
 }
 
+.logo {
+	display: flex;
+	gap: 0.5rem;
+}
+
 .logo > a,
 .logout > a {
 	display: flex;
@@ -40,6 +45,12 @@ a {
 	background-color: white;
 	border-radius: 50px;
 	padding: 10px;
+}
+
+.fa-pen-to-square {
+	color: white;
+	background: none;
+	padding: 0;
 }
 
 .links {

@@ -22,7 +22,7 @@ global $isSuccess;
                 $password = trim($_POST['password']);
                 $confirm = trim($_POST['confirm']);
 
-                $error['username'] = validateUsername($username);
+                $error['username'] = validateUsername($username, 1);
                 $error['email'] = validateEmail($email, 1);
                 $error['password'] = validatePassword($password);
                 $error['confirm'] = validateConfirm($password, $confirm, 1);

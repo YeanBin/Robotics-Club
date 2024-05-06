@@ -1,4 +1,4 @@
-.main-section div[class$='container'] {
+.form-container {
 	width: 30vw;
 	padding: 20px;
 	border: 1px solid #fff;
@@ -10,28 +10,19 @@ h1 {
 	margin-bottom: 1.5rem;
 }
 
-.message {
-	margin-bottom: 1rem;
-	padding: 10px;
-	border-radius: 4px;
-}
-
-.message.error {
-	background-color: #f8d7da;
-	border: 1px solid #f5c6cb;
-	color: #721c24;
-}
-
-.message.success {
-	background-color: #d4edda;
-	border: 1px solid #c3e6cb;
-	color: #155724;
-}
-
 .input-container {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 20px;
+}
+
+.input-container.error input {
+	border-color: #e74c3c;
+}
+
+.input-container.error small {
+	visibility: visible;
+	color: #e74c3c;
 }
 
 .input-container > label {
@@ -46,12 +37,12 @@ h1 {
 }
 
 .submit {
-	flex-direction: row;
-	justify-content: space-between;
+	margin-bottom: 0;
+	align-items: flex-end;
 }
 
 .submit input {
-	width: 48%;
+	width: 30%;
 	padding: 10px;
 	font-size: 16px;
 	background-color: #007bff;

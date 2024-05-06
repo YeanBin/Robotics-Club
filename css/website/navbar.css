@@ -46,6 +46,11 @@ a {
 	font-size: 20px;
 }
 
+.links img {
+	border-radius: 50%;
+	max-width: 40px;
+}
+
 .links .fa-solid {
 	color: var(--lead-black);
 	background-color: white;

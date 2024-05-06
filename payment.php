@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 $title = 'Payment';
 $css = 'css/website/payment.css';
 
@@ -61,7 +59,7 @@ if (isset($_POST['confirm'])) {
 
         $insertStm = $con->prepare($insertSql);
 
-        $insertStm->bind_param('sisd', $bookID, $eventID, $_SESSION['user'], $price);
+        $insertStm->bind_param('sisd', $bookID, $eventID, $user, $price);
 
         $insertStm->execute();
 

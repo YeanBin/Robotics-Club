@@ -1,3 +1,27 @@
+<?php
+session_start();
+
+if (isset($_SESSION['user'])) {
+	$user = $_SESSION['user'];
+
+	require_once('includes/helper.php');
+
+	$con = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+	if ($con->connect_error) {
+		die("Connection failed: " . $con->connect_error);
+	}
+
+	$query = "SELECT * FROM user WHERE username = '$user'";
+	$result = $con->query($query);
+
+	if ($row = $result->fetch_object()) {
+		$avatar = $row->avatar;
+	}
+	$result->free();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +58,15 @@
 				<a href="event.php">Events</a>
 				<a href="news.php">News</a>
 				<a href="about-us.php">About Us</a>
-				<a href="login.php"><i class="fa-solid fa-user"></i></a>
+				<a href="login.php">
+					<?php
+					if (!empty($avatar)) {
+						echo '<img src="' . $avatar . '" alt="Avatar">';
+					} else {
+						echo '<i class="fa-solid fa-user"></i>';
+					}
+					?>
+				</a>
 			</div>
 		</div>
 	</div>

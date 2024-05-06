@@ -125,7 +125,7 @@
 }
 
 .title h1 {
-	font-size: 2.3rem;
+	font-size: clamp(29px, 90% + 1vw, 35px);
 	color: var(--lead-black);
 	margin-bottom: 10px;
 }

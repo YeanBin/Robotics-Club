@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 $title = 'Events';
 $css = 'css/website/event.css';
@@ -132,8 +131,6 @@ $result = $con->query($sql);
                     $disabled = '';
 
                     if (isset($_SESSION['user'])) {
-                        $user = $_SESSION["user"];
-
                         $checkSql = "SELECT * FROM bookings WHERE event_id = $eventID AND user_id = '$user'";
                         $checkResult = $con->query($checkSql);
 
@@ -153,7 +150,7 @@ $result = $con->query($sql);
                         </div>
                         <div class='row details'>
                             <strong>
-                                <p>" . date("d-M-Y", strtotime($row["date"])) . " &#8226; " . $row['type'] . " &#8226; " . $row['seats'] . " seats remaining</p>
+                                <p>" . date("d-M-Y", strtotime($row["date"])) . " &#8226; " . $row['seats'] . " seats available &#8226; RM" . $row['price'] . " </p>
                             </strong>
                         </div>
                         <div class='row content'>

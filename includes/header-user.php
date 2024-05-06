@@ -1,4 +1,20 @@
-<?php require_once('../includes/helper.php') ?>
+<?php
+require_once('../includes/helper.php');
+
+$con = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+if ($con->connect_error) {
+    die("Connection failed: " . $con->connect_error);
+}
+
+$query = "SELECT * FROM user WHERE username = '$user'";
+$result = $con->query($query);
+
+if ($row = $result->fetch_object()) {
+    $avatar = $row->avatar;
+}
+$result->free();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +38,17 @@
     <div class="sidenav">
         <div class="container">
             <div class="logo">
-                <a href="dashboard.php"><i class="fa-solid fa-user"></i><?php echo $user ?></a>
+                <a href="dashboard.php">
+                    <?php
+                    if (!empty($avatar)) {
+                        echo '<img src="../' . $avatar . '" alt="Avatar">';
+                    } else {
+                        echo '<i class="fa-solid fa-user"></i>';
+                    }
+
+                    echo $user
+                    ?>
+                </a>
             </div>
             <div class="links">
                 <a href="../index.php">Home</a>

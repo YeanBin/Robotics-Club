@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-$title = 'User Management';
+$title = 'User Profile';
 $css = '../css/user/account.css';
 $user = $_SESSION['user'];
 
@@ -23,6 +23,7 @@ $query = "SELECT * FROM user WHERE username = '$user'";
 $result = $con->query($query);
 
 if ($row = $result->fetch_object()) {
+    $avatar = $row->avatar;
     $username = $row->username;
     $email = $row->email;
     $password = $row->password;
@@ -30,28 +31,6 @@ if ($row = $result->fetch_object()) {
     $gender = $row->gender;
 }
 $result->free();
-
-if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
-    $file = $_FILES['avatar'];
-
-    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-
-    if ($ext != 'jpg' && $ext != 'jpeg' && $ext != 'gif' && $ext != 'png') {
-        $err = 'Only JPG, GIF and PNG format are allowed.';
-    } else {
-        $dir = '../uploads/';
-        $avatar = $dir . uniqid() . '.' . $ext;
-
-        if (move_uploaded_file($file['tmp_name'], $avatar)) {
-            $sql = "UPDATE user SET avatar = ? WHERE username = ?";
-
-            $stm = $con->prepare($sql);
-            $stm->bind_param('ss', $avatar, $username);
-
-            $stm->execute();
-        }
-    }
-}
 
 if (!empty($_POST)) {
     $username = $_POST['username'];
@@ -90,6 +69,38 @@ if (!empty($_POST)) {
 
         $stm->execute();
     }
+
+    if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+        $file = $_FILES['avatar'];
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+        if ($file['size'] > 1048576) {
+            $error['avatar'] = 'File is more than 1MB in size';
+        } else if ($ext != 'jpg' && $ext != 'jpeg' && $ext != 'gif' && $ext != 'png') {
+            $error['avatar'] = 'Only JPG, GIF and PNG are allowed.';
+        }
+
+        if (empty($error)) {
+            if (!empty($row->avatar) && file_exists('../' . $row->avatar)) {
+                unlink('../' . $row->avatar);
+            }
+
+            $dir = 'uploads/';
+            $avatar = $dir . uniqid() . '.' . $ext;
+
+            if (move_uploaded_file($file['tmp_name'], '../' . $avatar)) {
+                $sql = "UPDATE user SET avatar = ? WHERE username = ?";
+
+                $stm = $con->prepare($sql);
+                $stm->bind_param('ss', $avatar, $username);
+
+                $stm->execute();
+
+                header("Location: {$_SERVER['PHP_SELF']}");
+                exit();
+            }
+        }
+    }
 }
 
 $con->close();
@@ -97,18 +108,24 @@ $con->close();
 
 <section class="main-section">
     <div class="main-container">
-        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data">
             <div class="avatar">
                 <div class="image">
                     <?php
-                    if (!empty($row->avatar)) {
-                        echo '<img src="' . $row->avatar . '" alt="Avatar">';
+                    if (!empty($avatar)) {
+                        echo '<img src="../' . $avatar . '" alt="Avatar">';
                     } else {
-                        echo '<p>No avatar uploaded</p>';
+                        echo '<i class="fa-solid fa-user"></i>';
                     }
                     ?>
                 </div>
-                <input type="file" name="avatar">
+
+                <div class="avatar-input <?php echo isset($error) && isset($error['avatar']) ? 'error' : '' ?>">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+                    <input type="file" name="avatar">
+
+                    <?php if (isset($error) && isset($error['avatar'])) printf('<small>%s</small>', $error['password']); ?>
+                </div>
 
                 <p><?php echo $username ?></p>
             </div>
@@ -134,7 +151,7 @@ $con->close();
                     </div>
 
                     <div class="input-container confirm <?php echo isset($error) && isset($error['confirm']) ? 'error' : '' ?>">
-                        <label for="confirm">Old Password</label>
+                        <label for="confirm">Current Password</label>
                         <input type="password" name="confirm">
 
                         <?php if (isset($error) && isset($error['confirm'])) printf('<small>%s</small>', $error['confirm']); ?>

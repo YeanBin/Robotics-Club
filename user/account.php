@@ -40,7 +40,7 @@ if (!empty($_POST)) {
     $phoneNo = trim($_POST['phone']);
     $gender = trim($_POST['gender']);
 
-    $error['email'] = validateEmail($email, 0, $newEmail);
+    $error['email'] = validateEmail($newEmail, 0, $email);
     $error['confirm'] = validateConfirm($confirm, $password, 0);
 
     if (!empty($newPass)) {
@@ -70,34 +70,37 @@ if (!empty($_POST)) {
         $stm->execute();
     }
 
-    if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+    if (isset($_FILES['avatar'])) {
         $file = $_FILES['avatar'];
-        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
-        if ($file['size'] > 1048576) {
+        if ($files['error'] === UPLOAD_ERR_FORM_SIZE || $file['size'] > 1048576) {
             $error['avatar'] = 'File is more than 1MB in size';
-        } else if ($ext != 'jpg' && $ext != 'jpeg' && $ext != 'gif' && $ext != 'png') {
-            $error['avatar'] = 'Only JPG, GIF and PNG are allowed.';
-        }
+        } else {
+            $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
-        if (empty($error)) {
-            if (!empty($row->avatar) && file_exists('../' . $row->avatar)) {
-                unlink('../' . $row->avatar);
+            if ($ext != 'jpg' && $ext != 'jpeg' && $ext != 'gif' && $ext != 'png') {
+                $error['avatar'] = 'Only JPG, GIF and PNG are allowed.';
             }
 
-            $dir = 'uploads/';
-            $avatar = $dir . uniqid() . '.' . $ext;
+            if (empty($error)) {
+                if (!empty($row->avatar) && file_exists('../' . $row->avatar)) {
+                    unlink('../' . $row->avatar);
+                }
 
-            if (move_uploaded_file($file['tmp_name'], '../' . $avatar)) {
-                $sql = "UPDATE user SET avatar = ? WHERE username = ?";
+                $dir = 'uploads/';
+                $avatar = $dir . uniqid() . '.' . $ext;
 
-                $stm = $con->prepare($sql);
-                $stm->bind_param('ss', $avatar, $username);
+                if (move_uploaded_file($file['tmp_name'], '../' . $avatar)) {
+                    $sql = "UPDATE user SET avatar = ? WHERE username = ?";
 
-                $stm->execute();
+                    $stm = $con->prepare($sql);
+                    $stm->bind_param('ss', $avatar, $username);
 
-                header("Location: {$_SERVER['PHP_SELF']}");
-                exit();
+                    $stm->execute();
+
+                    header("Location: {$_SERVER['PHP_SELF']}");
+                    exit();
+                }
             }
         }
     }
@@ -124,7 +127,7 @@ $con->close();
                     <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
                     <input type="file" name="avatar">
 
-                    <?php if (isset($error) && isset($error['avatar'])) printf('<small>%s</small>', $error['password']); ?>
+                    <?php if (isset($error) && isset($error['avatar'])) printf('<small>%s</small>', $error['avatar']); ?>
                 </div>
 
                 <p><?php echo $username ?></p>

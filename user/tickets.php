@@ -97,8 +97,8 @@ $result_get_bookings = $stmt_get_bookings->get_result();
                 <?php
                 } else {
                 ?>
-                    <tr>
-                        <td colspan="6">You have not booked any events.</td>
+                     <tr>
+                        <td colspan="5">No records found.</td>
                     </tr>
                 <?php
                 }

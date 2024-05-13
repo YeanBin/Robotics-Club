@@ -15,6 +15,7 @@
 	gap: 1rem;
 	padding: 0;
 	margin: 12rem 0 0 2rem;
+	color:white;
 }
 
 .container form {
@@ -74,6 +75,7 @@
 	font-size: 16px;
 	margin-top: 1rem;
 	background: none;
+	color:white;
 }
 
 .filters .checkbox {

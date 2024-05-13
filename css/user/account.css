@@ -47,6 +47,10 @@ form {
 	width: 100%;
 }
 
+.avatar-input > small {
+	font-size: small;
+}
+
 .details {
 	width: 70%;
 	background-color: white;

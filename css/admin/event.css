@@ -109,6 +109,7 @@ tfoot {
 	width: 150px;
 	border: none;
 	cursor: pointer;
+	color:white;
 }
 
 .popup.active {

@@ -26,7 +26,6 @@
                 <a href="account.php"><i class="fa-regular fa-pen-to-square"></i></a>
             </div>
             <div class="links">
-                <a href="../index.php">Home</a>
                 <a href="events.php">Events</a>
                 <a href="news.php">News</a>
                 <a href="users.php">Users</a>
